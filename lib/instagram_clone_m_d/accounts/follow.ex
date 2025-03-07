@@ -3,17 +3,16 @@ defmodule InstagramCloneMD.Accounts.Follow do
   import Ecto.Changeset
 
   schema "follows" do
+    belongs_to :follower, InstagramCloneMD.Accounts.User
+    belongs_to :followed, InstagramCloneMD.Accounts.User
 
-    field :follower_id, :id
-    field :followed_id, :id
-
-    timestamps(type: :utc_datetime)
+    timestamps()
   end
 
-  @doc false
   def changeset(follow, attrs) do
     follow
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:follower_id, :followed_id])
+    |> validate_required([:follower_id, :followed_id])
+    |> unique_constraint([:follower_id, :followed_id])
   end
 end

@@ -4,16 +4,16 @@ defmodule InstagramCloneMD.Content.Comment do
 
   schema "comments" do
     field :content, :string
-    field :user_id, :id
-    field :post_id, :id
 
-    timestamps(type: :utc_datetime)
+    belongs_to :user, InstagramCloneMD.Accounts.User
+    belongs_to :post, InstagramCloneMD.Content.Post
+
+    timestamps()
   end
 
-  @doc false
   def changeset(comment, attrs) do
     comment
-    |> cast(attrs, [:content])
-    |> validate_required([:content])
+    |> cast(attrs, [:content, :user_id, :post_id])
+    |> validate_required([:content, :user_id, :post_id])
   end
 end

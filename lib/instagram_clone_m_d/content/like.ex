@@ -3,17 +3,16 @@ defmodule InstagramCloneMD.Content.Like do
   import Ecto.Changeset
 
   schema "likes" do
+    belongs_to :user, InstagramCloneMD.Accounts.User
+    belongs_to :post, InstagramCloneMD.Content.Post
 
-    field :user_id, :id
-    field :post_id, :id
-
-    timestamps(type: :utc_datetime)
+    timestamps()
   end
 
-  @doc false
   def changeset(like, attrs) do
     like
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:user_id, :post_id])
+    |> validate_required([:user_id, :post_id])
+    |> unique_constraint([:user_id, :post_id])
   end
 end
