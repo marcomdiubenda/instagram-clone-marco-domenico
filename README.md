@@ -16,3 +16,16 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+
+## Resources
+
+mix phx.gen.schema Accounts.User users username:string:unique email:string:unique password_hash:string bio:string profile_image_url:string
+mix phx.gen.schema Accounts.Follow follows follower_id:references:users followed_id:references:users
+mix phx.gen.schema Content.Post posts caption:string image_url:string user_id:references:users
+mix phx.gen.schema Content.Comment comments content:string user_id:references:users post_id:references:posts
+mix phx.gen.schema Content.Like likes user_id:references:users post_id:references:posts
+
+
+mix phx.gen.context Accounts User users username:string:unique email:string:unique password_hash:string bio:string profile_image_url:string
+mix phx.gen.context Content Post posts caption:string image_url:string user_id:references:users
